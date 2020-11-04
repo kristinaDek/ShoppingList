@@ -1,3 +1,5 @@
-<p>
-  item-element works!
-</p>
+<ion-item>
+  <ion-label>{{item.text}}</ion-label>
+  <ion-checkbox slot="start" [(ngModel)]="item.checked"></ion-checkbox>
+  <ion-icon name="create-outline" slot="end"></ion-icon>
+</ion-item>
