@@ -7,7 +7,7 @@ import {ItemModel} from '../list/list-to/item.model';
   styleUrls: ['./item-element.component.scss'],
 })
 export class ItemElementComponent implements OnInit {
-  @Input() item: ItemModel = { id: 'i1', author: 'Kris', text: 'kupi svesku', checked: false};
+  @Input() item: ItemModel = { id: 'i1', type: 'school', title: 'kupi svesku', checked: false, author: 'Kris', text: 'kupi svesku'};
   constructor() { }
 
   ngOnInit() {}

@@ -3,21 +3,19 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
-      Welcome to your shopping list!
+    <ion-title >
+      Welcome
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-label color="light">Ready to create your shopping list?<br></ion-label>
+    <ion-label routerLink="/list-to" color="primary"><strong>Go!</strong></ion-label>
   </div>
+  <ion-img src="assets/img/narandz.png"></ion-img>
+
 </ion-content>
