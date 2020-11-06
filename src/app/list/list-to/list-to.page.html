@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+    <ion-back-button defaultHref="/home"></ion-back-button>
+  </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-fab-button size="small" color="secondary" (click)="openModal()"><ion-icon name="bag-add-outline"></ion-icon></ion-fab-button>
+    </ion-buttons>
+    <ion-title> Your shoppy </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <app-item-element *ngFor="let item of items" [item]="item"></app-item-element>
+  </ion-list>
+</ion-content>
