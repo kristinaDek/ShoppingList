@@ -63,8 +63,63 @@ export class ListService {
               });
             }
           }
-          this._items.next(items);
+
           return items;
-        }));
+        }), tap( items => {
+          this._items.next(items); }));
+  }
+
+  getItem(id: string){
+    return this.httpClient.get<ItemData>(`https://shoppydb-1c165.firebaseio.com/items/${id}.json`)
+        .pipe(map((resultData) => {
+      console.log(resultData);
+      return{
+        id,
+        title: resultData.title,
+        text: resultData.text,
+        author: resultData.author,
+        checked: resultData.checked,
+        type: resultData.type,
+      };
+    }));
+  }
+
+  deleteItem(id: string) {
+    return this.httpClient
+            .delete(`https://quotes-app-11-termin.firebaseio.com/quotes/${id}.json`).
+        pipe(switchMap(() => {
+        return this.items;
+      }),
+      take(1),
+      tap((items) => {
+        this._items.next(items.filter((item) => item.id !== id));
+      }));
+  }
+
+  editItem(id: string, title: string, text: string, author: string,  checked: boolean, type: string) {
+
+    return this.httpClient
+            .put(`https://quotes-app-11-termin.firebaseio.com/quotes/${id}.json`, {title, text, author, checked, type})
+        .pipe( switchMap(() => this.items),
+        take(1),
+        tap((items) => {
+          const updatedItemIndex = items.findIndex((item) => item.id === id);
+          const updatedItems = [...items];
+          updatedItems[updatedItemIndex] = {
+              id,
+              title,
+              text,
+              author,
+              checked,
+              type};
+          this._items.next(updatedItems);
+        })
+    );
+
+  }
+
+  checkOrUncheckItem(id: string, b: boolean) {
+    // this.items.update(id, {checked: b});
+    console.log('uspelo');
   }
 }

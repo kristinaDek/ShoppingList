@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ItemModel} from '../list/list-to/item.model';
+import {ListService} from '../list/list.service';
 
 @Component({
   selector: 'app-item-element',
@@ -8,8 +9,11 @@ import {ItemModel} from '../list/list-to/item.model';
 })
 export class ItemElementComponent implements OnInit {
   @Input() item: ItemModel = { id: 'i1', type: 'school', title: 'kupi svesku', checked: false, author: 'Kris', text: 'kupi svesku'};
-  constructor() { }
+  constructor(private listService: ListService) { }
 
   ngOnInit() {}
 
+    alterCheck(id: string, checked: boolean) {
+        this.listService.checkOrUncheckItem(id, !checked);
+    }
 }

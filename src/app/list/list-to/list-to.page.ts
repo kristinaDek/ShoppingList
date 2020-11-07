@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ItemModel} from './item.model';
 import {ModalController} from '@ionic/angular';
 import {ItemModalComponent} from '../item-modal/item-modal.component';
 import {ListService} from '../list.service';
+import {Subscription} from 'rxjs';
 
 
 @Component({
@@ -10,14 +11,15 @@ import {ListService} from '../list.service';
   templateUrl: './list-to.page.html',
   styleUrls: ['./list-to.page.scss'],
 })
-export class ListToPage implements OnInit {
+export class ListToPage implements OnInit, OnDestroy {
   items: ItemModel[] = [{ id: 'i1', author: 'Kris', title: 'kupi svesku', text: 'knjizara', checked: false, type: 'school'}];
+  private itemsSub: Subscription;
 
   constructor(private modalCtrl: ModalController, private listService: ListService) { }
 
   ngOnInit() {
     console.log('ngOnInit');
-    this.listService.items.subscribe((items) => {
+    this.itemsSub = this.listService.items.subscribe((items) => {
       this.items = items;
     });
   }
@@ -26,6 +28,12 @@ export class ListToPage implements OnInit {
     this.listService.getItems().subscribe((items) => {
       // this.items = items;
     });
+  }
+  ngOnDestroy(): void {
+    console.log('ngOnDestroy');
+    if (this.itemsSub){
+      this.itemsSub.unsubscribe();
+    }
   }
 
   openModal() {
