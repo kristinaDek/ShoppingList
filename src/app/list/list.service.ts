@@ -86,7 +86,7 @@ export class ListService {
 
   deleteItem(id: string) {
     return this.httpClient
-            .delete(`https://quotes-app-11-termin.firebaseio.com/quotes/${id}.json`).
+            .delete(`https://shoppydb-1c165.firebaseio.com/items/${id}.json`).
         pipe(switchMap(() => {
         return this.items;
       }),
@@ -99,7 +99,7 @@ export class ListService {
   editItem(id: string, title: string, text: string, author: string,  checked: boolean, type: string) {
 
     return this.httpClient
-            .put(`https://quotes-app-11-termin.firebaseio.com/quotes/${id}.json`, {title, text, author, checked, type})
+            .put(`https://shoppydb-1c165.firebaseio.com/items/${id}.json`, {title, text, author, checked, type})
         .pipe( switchMap(() => this.items),
         take(1),
         tap((items) => {

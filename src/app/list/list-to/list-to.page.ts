@@ -22,6 +22,8 @@ export class ListToPage implements OnInit, OnDestroy {
     this.itemsSub = this.listService.items.subscribe((items) => {
       this.items = items;
     });
+
+
   }
 
   ionViewWillEnter(){

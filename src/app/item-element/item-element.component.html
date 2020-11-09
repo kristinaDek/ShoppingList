@@ -1,5 +1,12 @@
 <ion-item>
+
+<!--  <ion-checkbox slot="start" [(ngModel)]="item.checked" ></ion-checkbox>-->
   <ion-label>{{item.title}}</ion-label>
-  <ion-checkbox slot="start" [(ngModel)]="item.checked" (click)="alterCheck(item.id, item.checked)"></ion-checkbox>
-  <ion-icon name="create-outline" slot="end" color="secondary"></ion-icon>
+  <ion-buttons slot="end">
+  <ion-button [routerLink]="['/', 'list-to', item.id]"><ion-icon name="create-outline"  color="primary" ></ion-icon></ion-button>
+  <ion-button (click)="alterCheck($event, item.id, item.checked)"><ion-icon name="checkmark-done-outline" color="tertiary"></ion-icon></ion-button>
+  </ion-buttons>
+
+
+
 </ion-item>

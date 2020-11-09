@@ -13,7 +13,9 @@ export class ItemElementComponent implements OnInit {
 
   ngOnInit() {}
 
-    alterCheck(id: string, checked: boolean) {
+    alterCheck(event, id: string, checked: boolean) {
+        event.stopPropagation();
+        event.preventDefault();
         this.listService.checkOrUncheckItem(id, !checked);
     }
 }

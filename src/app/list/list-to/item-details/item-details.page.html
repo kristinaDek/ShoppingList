@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/list-to">
+      </ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Details</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-fab-button size="small" color="secondary" (click)="onEditItem()">
+        <ion-icon name="pencil"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button size="small" color="secondary" (click)="onDeleteItem()">
+        <ion-icon name="trash"></ion-icon>
+      </ion-fab-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="ion-text-center" *ngIf="isLoading">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+
+  <ion-card *ngIf="!isLoading">
+    <ion-card-header>
+      <ion-card-title>
+        <h1>{{item.title}}</h1>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>{{item.type}}</h2>
+      <h3>{{item.text}}</h3>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

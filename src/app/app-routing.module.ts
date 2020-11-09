@@ -23,11 +23,6 @@ const routes: Routes = [
     loadChildren: () => import('./auth/register/register.module').then( m => m.RegisterPageModule)
   },
   {
-    path: 'item-details',
-    loadChildren: () => import('./list/item-details/item-details.module').then( m => m.ItemDetailsPageModule),
-    canLoad: [AuthGuard]
-  },
-  {
     path: 'list-to',
     loadChildren: () => import('./list/list-to/list-to.module').then( m => m.ListToPageModule),
     canLoad: [AuthGuard]
