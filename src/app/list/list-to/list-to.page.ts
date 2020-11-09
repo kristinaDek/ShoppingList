@@ -20,6 +20,7 @@ export class ListToPage implements OnInit, OnDestroy {
   ngOnInit() {
     console.log('ngOnInit');
     this.itemsSub = this.listService.items.subscribe((items) => {
+      items.sort((a: any, b: any) => a.checked - b.checked);
       this.items = items;
     });
 
@@ -28,6 +29,7 @@ export class ListToPage implements OnInit, OnDestroy {
 
   ionViewWillEnter(){
     this.listService.getItems().subscribe((items) => {
+      items.sort((a: any, b: any) => a.checked - b.checked);
       // this.items = items;
     });
   }

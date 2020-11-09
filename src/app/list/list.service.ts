@@ -64,7 +64,7 @@ export class ListService {
             }
           }
 
-          return items;
+          return items.sort((a: any, b: any) => a.checked - b.checked);
         }), tap( items => {
           this._items.next(items); }));
   }
@@ -118,8 +118,32 @@ export class ListService {
 
   }
 
-  checkOrUncheckItem(id: string, b: boolean) {
+  checkOrUncheckItem(it: ItemModel) {
     // this.items.update(id, {checked: b});
     console.log('uspelo');
+    const id = it.id;
+    const title = it.title;
+    const text = it.text;
+    const type = it.type;
+    const author = it.author;
+    const checked = !it.checked;
+
+    return this.httpClient
+        .put(`https://shoppydb-1c165.firebaseio.com/items/${id}.json`, {title, text, author, checked, type})
+        .pipe( switchMap(() => this.items),
+            take(1),
+            tap((items) => {
+              const updatedItemIndex = items.findIndex((item) => item.id === id);
+              const updatedItems = [...items];
+              updatedItems[updatedItemIndex] = {
+                    id,
+                    title,
+                    text,
+                    author,
+                    checked,
+                    type};
+              this._items.next(updatedItems);
+            })
+        );
   }
 }

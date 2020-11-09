@@ -30,38 +30,39 @@ export class ItemDetailsPage implements OnInit {
     });
   }
 
-    onEditItem() {
-      this.modalCtrl.create({
-        component: ItemModalComponent,
-        componentProps: {name: 'Edit item', title: this.item.title, type: this.item.type, text: this.item.text}
-      }).then((modal) => {
-        modal.present();
-        return modal.onDidDismiss();
-      }).then((resultData) => {
-        if (resultData.role === 'confirm') {
-          console.log(resultData);
-          this.loadingCtrl.create({message: 'Editing...'}).then(loadingEl => {
-            loadingEl.present();
-            this.listService
-                .editItem(
-                    this.item.id,
-                    resultData.data.itemData.title,
-                    resultData.data.itemData.text,
-                    resultData.data.itemData.author,
-                    resultData.data.itemData.checked,
-                    resultData.data.itemData.type,
-                    )
-                .subscribe((res) => {
-                  this.item.title = resultData.data.itemData.title;
-                  this.item.text = resultData.data.itemData.text;
-                  this.item.type = resultData.data.itemData.type;
-                  loadingEl.dismiss();
-                });
 
-          });
-        }
-      });
-    }
+  onEditItem() {
+    this.modalCtrl.create({
+      component: ItemModalComponent,
+      componentProps: {name: 'Edit item', title: this.item.title, type: this.item.type, text: this.item.text}
+    }).then((modal) => {
+      modal.present();
+      return modal.onDidDismiss();
+    }).then((resultData) => {
+      if (resultData.role === 'confirm') {
+        console.log(resultData);
+        this.loadingCtrl.create({message: 'Editing...'}).then(loadingEl => {
+          loadingEl.present();
+          this.listService
+              .editItem(
+                  this.item.id,
+                  resultData.data.itemData.title,
+                  resultData.data.itemData.text,
+                  resultData.data.itemData.author,
+                  resultData.data.itemData.checked,
+                  resultData.data.itemData.type,
+                  )
+              .subscribe((res) => {
+                this.item.title = resultData.data.itemData.title;
+                this.item.text = resultData.data.itemData.text;
+                this.item.type = resultData.data.itemData.type;
+                loadingEl.dismiss();
+              });
+
+        });
+      }
+    });
+  }
 
   onDeleteItem() {
     this.loadingCtrl.create({message: 'Deleting...'}).then(loadingEl => {
