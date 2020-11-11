@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../auth.service';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {ListService} from '../../list/list.service';
+import {LoadingController} from '@ionic/angular';
 
 @Component({
   selector: 'app-log-in',
@@ -10,7 +12,7 @@ import {NgForm} from '@angular/forms';
 })
 export class LogInPage implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
   }
@@ -19,8 +21,15 @@ export class LogInPage implements OnInit {
     console.log(logInForm);
     if (logInForm.valid)
     {
-      this.authService.logIn();
-      this.router.navigateByUrl( '/home');
+      this.loadingCtrl.create({message: 'Signing in...'}).then(loadingEl => {
+        loadingEl.present();
+        this.authService.logIn(logInForm.value).subscribe(resData => {
+        console.log('ulogovan');
+        console.log(resData);
+        loadingEl.dismiss();
+      });
+        this.router.navigateByUrl( '/home');
+      });
     }
   }
 
