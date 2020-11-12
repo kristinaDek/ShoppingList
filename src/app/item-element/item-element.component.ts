@@ -9,7 +9,7 @@ import {LoadingController} from '@ionic/angular';
   styleUrls: ['./item-element.component.scss'],
 })
 export class ItemElementComponent implements OnInit {
-  @Input() item: ItemModel = new ItemModel('i1', 'kupi svesku', 'knjizara', 'kris', 'pribor', false, '');
+  @Input() item: ItemModel;
   constructor(private listService: ListService, private loadingCtrl: LoadingController) { }
 
   ngOnInit() {}

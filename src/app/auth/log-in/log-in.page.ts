@@ -3,7 +3,7 @@ import {AuthService} from '../auth.service';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {ListService} from '../../list/list.service';
-import {LoadingController} from '@ionic/angular';
+import {AlertController, LoadingController} from '@ionic/angular';
 
 @Component({
   selector: 'app-log-in',
@@ -12,24 +12,41 @@ import {LoadingController} from '@ionic/angular';
 })
 export class LogInPage implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router, private loadingCtrl: LoadingController) { }
+  // tslint:disable-next-line:max-line-length
+  constructor(private authService: AuthService, private router: Router, private loadingCtrl: LoadingController, private alertCtrl: AlertController) { }
 
   ngOnInit() {
   }
 
-  onLogIn(logInForm: NgForm){
-    console.log(logInForm);
-    if (logInForm.valid)
-    {
-      this.loadingCtrl.create({message: 'Signing in...'}).then(loadingEl => {
-        loadingEl.present();
-        this.authService.logIn(logInForm.value).subscribe(resData => {
-        console.log('ulogovan');
-        console.log(resData);
-        loadingEl.dismiss();
-        this.router.navigateByUrl( '/home');
-      }); });
-    }
-  }
+    onLogIn(logInForm: NgForm) {
+      console.log(logInForm);
+      if (logInForm.valid) {
+        this.loadingCtrl.create({message: 'Signing in...'}).then(loadingEl => {
+          loadingEl.present();
+          this.authService.logIn(logInForm.value).subscribe(resData => {
+              console.log('ulogovan');
+              console.log(resData);
+              loadingEl.dismiss();
+              this.router.navigateByUrl('/home');
+            },
+            errRes => {
+              console.log(errRes);
+              loadingEl.dismiss();
+              const message = 'Incorrect email or password';
 
+              this.alertCtrl.create(
+                  {
+                    header: 'Authentication failed',
+                    message,
+                    buttons: ['Okay']
+                  }
+              ).then((alert) => {
+                alert.present();
+              });
+
+              logInForm.reset();
+            });
+      });
+      }
+    }
 }
