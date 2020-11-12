@@ -12,8 +12,9 @@ export class ItemModalComponent implements OnInit {
   @Input() name: string;
   @Input() title: string;
   @Input() type: string;
-  @Input() author: string;
+  // @Input() author: string;
   @Input() text: string;
+  // @Input() userId: string;
 
   constructor(private modalCtrl: ModalController) { }
 
@@ -35,8 +36,9 @@ export class ItemModalComponent implements OnInit {
             title: this.form.value.title,
             type: this.form.value.type,
             text: this.form.value.text,
-            author: this.author,
-            checked: false,
+            // author: this.author,
+            // checked: false,
+            // userId: this.userId,
           }
     }, 'confirm');
   }

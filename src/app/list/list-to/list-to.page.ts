@@ -12,7 +12,7 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./list-to.page.scss'],
 })
 export class ListToPage implements OnInit, OnDestroy {
-  items: ItemModel[] = [{ id: 'i1', author: 'Kris', title: 'kupi svesku', text: 'knjizara', checked: false, type: 'school'}];
+  items: ItemModel[] = [{ id: 'i1', author: 'Kris', title: 'kupi svesku', text: 'knjizara', checked: false, type: 'school', userId: ''}];
   private itemsSub: Subscription;
 
   constructor(private modalCtrl: ModalController, private listService: ListService) { }

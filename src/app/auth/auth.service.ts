@@ -4,7 +4,7 @@ import {environment} from '../../environments/environment';
 import {BehaviorSubject} from 'rxjs';
 import {__values} from 'tslib';
 import {User} from './user.model';
-import {tap} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 
 export interface AuthResponseData {
     kind: string;
@@ -33,8 +33,40 @@ export class AuthService {
 
     constructor(private httpClient: HttpClient) { }
 
-    get isUserAuthenticated(): boolean{
-      return this._isUserAuthenticated;
+    get isUserAuthenticated(){
+        return this._user.asObservable().pipe(
+            map((user) => {
+                if (user) {
+                    return !!user.token;
+                } else {
+                    return false;
+                }
+            })
+        );
+    }
+
+    get userId() {
+        return this._user.asObservable().pipe(
+            map((user) => {
+                if (user) {
+                    return user.id;
+                } else {
+                    return null;
+                }
+            })
+        );
+    }
+
+    get token() {
+        return this._user.asObservable().pipe(
+            map((user) => {
+                if (user) {
+                    return user.token;
+                } else {
+                    return null;
+                }
+            })
+        );
     }
 
     logIn(user: UserData)
@@ -54,7 +86,7 @@ export class AuthService {
 
     logOut()
     {
-      this._isUserAuthenticated = false;
+        this._user.next(null);
     }
 
     register(user: UserData){

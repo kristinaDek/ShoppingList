@@ -4,7 +4,7 @@
   <div *ngIf="item.checked === true; else done"><ion-label color="primary"><s>{{item.title}}</s></ion-label></div>
   <ng-template #done><ion-label color="light">{{item.title}}</ion-label></ng-template>
   <ion-buttons slot="end">
-  <ion-button [routerLink]="['/', 'list-to', item.id]" [disabled]="item.checked === true"><ion-icon name="create-outline" color="light"></ion-icon></ion-button>
+  <ion-button [routerLink]="['/', 'list-to', item.id]" [disabled]="item.checked === true"><ion-icon name="reader-outline" color="light"></ion-icon></ion-button>
   <ion-button (click)="alterCheck(item)" [hidden]="item.checked === true"><ion-icon name="bag-check-outline" color="light" ></ion-icon></ion-button>
   <ion-button (click)="alterCheck(item)" [hidden]="item.checked === false"><ion-icon name="bag-remove-outline" color="primary"></ion-icon></ion-button>
   </ion-buttons>

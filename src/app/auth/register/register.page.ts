@@ -31,9 +31,8 @@ export class RegisterPage implements OnInit {
       console.log('registrovan');
       console.log(resData);
       loadingEl.dismiss();
-    });
-
       this.router.navigateByUrl( '/log-in');
     });
+     });
   }
 }

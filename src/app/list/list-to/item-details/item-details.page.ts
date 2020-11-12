@@ -11,7 +11,7 @@ import {ItemModalComponent} from '../../item-modal/item-modal.component';
   styleUrls: ['./item-details.page.scss'],
 })
 export class ItemDetailsPage implements OnInit {
-  item: ItemModel = { id: 'i1', author: 'Kris', title: 'kupi svesku', text: 'knjizara', checked: false, type: 'school'};
+  item: ItemModel = new ItemModel('i1', 'kupi svesku', 'knjizara', 'kris', 'pribor', false, '');
   isLoading = false;
   // tslint:disable-next-line:max-line-length
   constructor(private route: ActivatedRoute, private navCtrl: NavController, private listService: ListService, private loadingCtrl: LoadingController, private modalCtrl: ModalController) { }
@@ -34,7 +34,8 @@ export class ItemDetailsPage implements OnInit {
   onEditItem() {
     this.modalCtrl.create({
       component: ItemModalComponent,
-      componentProps: {name: 'Edit item', title: this.item.title, type: this.item.type, text: this.item.text}
+      // tslint:disable-next-line:max-line-length
+      componentProps: {name: 'Edit item', title: this.item.title, type: this.item.type, text: this.item.text, author: this.item.author, userId: this.item.userId, checked: this.item.checked}
     }).then((modal) => {
       modal.present();
       return modal.onDidDismiss();
@@ -48,9 +49,10 @@ export class ItemDetailsPage implements OnInit {
                   this.item.id,
                   resultData.data.itemData.title,
                   resultData.data.itemData.text,
-                  resultData.data.itemData.author,
-                  resultData.data.itemData.checked,
+                  this.item.author,
                   resultData.data.itemData.type,
+                  this.item.checked,
+                  this.item.userId,
                   )
               .subscribe((res) => {
                 this.item.title = resultData.data.itemData.title;

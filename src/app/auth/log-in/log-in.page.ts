@@ -27,9 +27,8 @@ export class LogInPage implements OnInit {
         console.log('ulogovan');
         console.log(resData);
         loadingEl.dismiss();
-      });
         this.router.navigateByUrl( '/home');
-      });
+      }); });
     }
   }
 
