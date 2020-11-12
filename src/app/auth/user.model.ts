@@ -9,4 +9,11 @@ export class User {
         }
         return this._token;
     }
+
+    get Id() {
+        if (!this.tokenExpirationDate || this.tokenExpirationDate <= new Date()) {
+            return null;
+        }
+        return this.id;
+    }
 }

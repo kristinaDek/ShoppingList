@@ -11,13 +11,16 @@ import {ItemElementComponent} from '../../item-element/item-element.component';
 import {ItemModalComponent} from '../item-modal/item-modal.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    ListToPageRoutingModule
-  ],
-  declarations: [ListToPage, ItemElementComponent, ItemModalComponent],
-  entryComponents: [ItemModalComponent]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        ListToPageRoutingModule
+    ],
+    declarations: [ListToPage, ItemElementComponent, ItemModalComponent],
+    exports: [
+        ItemElementComponent
+    ],
+    entryComponents: [ItemModalComponent]
 })
 export class ListToPageModule {}

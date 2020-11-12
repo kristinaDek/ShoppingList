@@ -5,6 +5,7 @@ import {map, switchMap, take, tap} from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
 import {AuthService} from '../auth/auth.service';
 
+
 interface ItemData {
   author: string;
   title: string;
@@ -20,11 +21,16 @@ interface ItemData {
 export class ListService {
   // tslint:disable-next-line:variable-name
   private _items = new BehaviorSubject<ItemModel[]>([]);
+  private doneitems = new BehaviorSubject<ItemModel[]>([]);
+  exp: string;
   constructor(private httpClient: HttpClient, private authService: AuthService) { }
 
-  get items(){
-    return this._items.asObservable();
-  }
+      get items(){
+        return this._items.asObservable();
+      }
+    get doneItems(){
+        return this.doneitems.asObservable();
+    }
 
   addItem(title: string, text: string, author: string, checked: boolean, type: string){
     let generatedId;
@@ -81,8 +87,17 @@ export class ListService {
                   for (const key in itemsData)
                   {
                     if (itemsData.hasOwnProperty(key)){
-                        // tslint:disable-next-line:max-line-length
-                      items.push(new ItemModel(key, itemsData[key].title, itemsData[key].text, itemsData[key].author, itemsData[key].type, itemsData[key].checked, itemsData[key].userId));
+                        const itm: ItemData = itemsData[key];
+                        this.authService.userId.subscribe( userId =>
+                        {this.exp = userId;
+                         return this.exp;
+                        });
+                        if (itm.author === this.exp){
+                            // tslint:disable-next-line:max-line-length
+                            items.push(new ItemModel(key, itemsData[key].title, itemsData[key].text, itemsData[key].author, itemsData[key].type, itemsData[key].checked, itemsData[key].userId));
+
+                        }
+
 
                     }
                   }
@@ -181,4 +196,37 @@ export class ListService {
                 })
             );
       }
+
+    getDoneItems() {
+        return this.authService.token.pipe(
+            take(1),
+            switchMap((token) => {
+                return this.httpClient
+                    .get<{ [key: string]: ItemData }>(
+                        `https://shoppydb-1c165.firebaseio.com/items.json?auth=${token}`
+                    ); }),
+            map((itemsData) => {
+                console.log(itemsData);
+                const items: ItemModel[] = [];
+                for (const key in itemsData)
+                {
+                    if (itemsData.hasOwnProperty(key)){
+                        const itm: ItemData = itemsData[key];
+                        this.authService.userId.subscribe( userId =>
+                        {this.exp = userId;
+                         return this.exp;
+                        });
+                        if (itm.author === this.exp){
+                            // tslint:disable-next-line:max-line-length
+                            items.push(new ItemModel(key, itemsData[key].title, itemsData[key].text, itemsData[key].author, itemsData[key].type, itemsData[key].checked, itemsData[key].userId));
+
+                        }
+
+                    }
+                }
+                return items;
+            }),
+            tap( items => {
+                this.doneitems.next(items); }));
     }
+}

@@ -27,6 +27,11 @@ const routes: Routes = [
     loadChildren: () => import('./list/list-to/list-to.module').then( m => m.ListToPageModule),
     canLoad: [AuthGuard]
   },
+  {
+    path: 'done',
+    loadChildren: () => import('./list/list-to/done/done.module').then(m => m.DonePageModule),
+    canLoad: [AuthGuard]
+  },
 ];
 
 @NgModule({
