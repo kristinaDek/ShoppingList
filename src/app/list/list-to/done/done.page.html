@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <!--    <ion-back-button defaultHref="/home"></ion-back-button>-->
+    </ion-buttons>
+<!--    <ion-buttons slot="end">-->
+<!--&lt;!&ndash;      <ion-fab-button size="small" color="secondary" (click)="openModal()"><ion-icon name="bag-add-outline"></ion-icon></ion-fab-button>&ndash;&gt;-->
+<!--    </ion-buttons>-->
+    <ion-title> Already done it? </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <app-item-done-element *ngFor="let item of items" [item]="item"></app-item-done-element>
+  </ion-list>
+</ion-content>
