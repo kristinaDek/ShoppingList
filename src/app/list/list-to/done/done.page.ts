@@ -11,7 +11,7 @@ import {Subscription} from 'rxjs';
 export class DonePage implements OnInit, OnDestroy {
   items: ItemModel[] = [];
   private itemsSub: Subscription;
-
+  filterTerm: string;
   constructor(private listService: ListService) { }
 
   ngOnInit() {
@@ -24,7 +24,8 @@ export class DonePage implements OnInit, OnDestroy {
 
   ionViewWillEnter(){
     this.listService.getDoneItems().subscribe((items) => {
-
+      console.log('ionViewWillEnter');
+      console.log(items);
       // this.items = items;
     });
   }

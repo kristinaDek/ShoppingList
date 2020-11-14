@@ -1,6 +1,6 @@
 export class User {
-    // tslint:disable-next-line:variable-name
-    constructor(public id: string, public email: string, private _token: string, private tokenExpirationDate: Date) {
+    // tslint:disable-next-line:variable-name max-line-length
+    constructor(public id: string, public name: string, public surname: string, public email: string, private _token: string, private tokenExpirationDate: Date) {
     }
 
     get token() {
@@ -15,5 +15,11 @@ export class User {
             return null;
         }
         return this.id;
+    }
+    get expires() {
+        if (!this.tokenExpirationDate || this.tokenExpirationDate <= new Date()) {
+            return null;
+        }
+        return this.tokenExpirationDate;
     }
 }

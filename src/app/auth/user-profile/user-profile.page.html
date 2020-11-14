@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!--        <ion-menu-button></ion-menu-button>-->
+      <ion-back-button defaultHref="/home" ></ion-back-button>
+    </ion-buttons>
+    <ion-title> Your Shoppy profile </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="container">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            <ion-label><h1><ion-icon name="accessibility-outline" color="primary"></ion-icon>     {{userD.email}}</h1></ion-label>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+    <!--      <h2>token: {{userD.token}}</h2>-->
+          <ion-label><h2>userID: {{userD.Id}}</h2></ion-label>
+          <ion-label><h3>{{userD.name}}</h3></ion-label>
+          <ion-label><h3>{{userD.surname}}</h3></ion-label>
+          <ion-label color="primary"><h3>Expires on: {{userD.expires}}</h3></ion-label>
+
+        </ion-card-content>
+      </ion-card>
+    </div>
+<!--  <ion-button (click)="toggleInfiniteScroll()" expand="block">-->
+<!--    Toggle Infinite Scroll-->
+<!--  </ion-button>-->
+
+<!--  <ion-list></ion-list>-->
+
+<!--  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">-->
+<!--    <ion-infinite-scroll-content-->
+<!--            loadingSpinner="bubbles"-->
+<!--            loadingText="Loading more data...">-->
+<!--    </ion-infinite-scroll-content>-->
+<!--  </ion-infinite-scroll>-->
+</ion-content>

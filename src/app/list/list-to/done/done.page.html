@@ -12,7 +12,8 @@
 </ion-header>
 
 <ion-content>
+  <ion-searchbar placeholder="Search..." [(ngModel)]="filterTerm" animated="true"></ion-searchbar>
   <ion-list>
-    <app-item-done-element *ngFor="let item of items" [item]="item"></app-item-done-element>
+    <app-item-done-element *ngFor="let item of items | filter:filterTerm" [item]="item"></app-item-done-element>
   </ion-list>
 </ion-content>

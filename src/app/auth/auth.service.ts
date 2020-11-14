@@ -6,6 +6,7 @@ import {BehaviorSubject} from 'rxjs';
 import {User} from './user.model';
 import {map, tap} from 'rxjs/operators';
 
+
 export interface AuthResponseData {
     kind: string;
     idToken: string;
@@ -20,6 +21,7 @@ export interface UserData {
     surname?: string;
     email: string;
     password: string;
+
 }
 
 @Injectable({
@@ -40,6 +42,18 @@ export class AuthService {
                     return !!user.token;
                 } else {
                     return false;
+                }
+            })
+        );
+    }
+
+    get userData(){
+        return this._user.asObservable().pipe(
+            map((user) => {
+                if (user) {
+                    return user;
+                } else {
+                    return null;
                 }
             })
         );
@@ -79,7 +93,7 @@ export class AuthService {
                 returnSecureToken: true
             }).pipe(tap(userData => {
           const expirationDate = new Date(new Date().getTime() + +userData.expiresIn * 1000);
-          const newUser = new User(userData.localId, userData.email, userData.idToken, expirationDate);
+          const newUser = new User(userData.localId, user.name, user.surname, userData.email, userData.idToken, expirationDate);
           this._user.next(newUser);
       }));
     }
@@ -92,13 +106,20 @@ export class AuthService {
     register(user: UserData){
         this._isUserAuthenticated = true;
         return this.httpClient.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseApiKey}`, {
+            name: user.name,
+            surname: user.surname,
             email: user.email,
             password: user.password,
             returnSecureToken: true
         }).pipe(tap(userData => {
             const expirationDate = new Date(new Date().getTime() + +userData.expiresIn * 1000);
-            const newUser = new User(userData.localId, userData.email, userData.idToken, expirationDate);
+            const newUser = new User(userData.localId, user.name, user.surname, userData.email, userData.idToken, expirationDate);
             this._user.next(newUser);
         }));
     }
+
+
+    // resetPassword(email: string): Promise<void> {
+    //     return firebase.auth().sendPasswordResetEmail(email);
+    // }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../auth.service';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
-import {ListService} from '../../list/list.service';
+
 import {AlertController, LoadingController} from '@ionic/angular';
 
 @Component({
@@ -49,4 +49,33 @@ export class LogInPage implements OnInit {
       });
       }
     }
+
+//     goToReset(email) {
+//
+//     this.authService.resetPassword(email).then(
+//         async () => {
+//             const alert = await this.alertCtrl.create({
+//                 message: 'Check your email for a password reset link',
+//                 buttons: [
+//                     {
+//                         text: 'Ok',
+//                         role: 'cancel',
+//                         handler: () => {
+//                             this.router.navigateByUrl('/log-in');
+//                         },
+//                     },
+//                 ],
+//             });
+//             await alert.present();
+//         },
+//         async error => {
+//             const errorAlert = await this.alertCtrl.create({
+//                 message: error.message,
+//                 buttons: [{ text: 'Ok', role: 'cancel' }],
+//             });
+//             await errorAlert.present();
+//         }
+//     );
+// }
 }
+

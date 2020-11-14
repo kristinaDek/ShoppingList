@@ -32,6 +32,11 @@ const routes: Routes = [
     loadChildren: () => import('./list/list-to/done/done.module').then(m => m.DonePageModule),
     canLoad: [AuthGuard]
   },
+  {
+    path: 'user-profile',
+    loadChildren: () => import('./auth/user-profile/user-profile.module').then( m => m.UserProfilePageModule),
+    canLoad: [AuthGuard]
+  },
 ];
 
 @NgModule({
